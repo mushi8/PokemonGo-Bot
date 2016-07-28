@@ -1,3 +1,6 @@
 [submodule "web"]
 	path = web
 	url = https://github.com/mushi8/OpenPoGoWeb.git
+[submodule "conf"]
+	path = conf
+	url = https://mushi8@bitbucket.org/mushi8/configs.git
