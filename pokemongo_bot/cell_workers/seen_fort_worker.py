@@ -115,7 +115,19 @@ class SeenFortWorker(object):
                         'if pokemons always ran away and you find nothing in '
                         'PokeStops you are indeed softbanned. Please try again '
                         'in a few hours.')
-                    raise RuntimeError(message)
+                    logger.log(message, 'orange')
+                    i = 0
+                    logger.log("[X] will rotate pokestop 40 times to try to release softban", 'orange')
+                    logger.log("[X] This will take approximately 80 seconds", 'orange')
+                    while i <= 40:
+                        self.api.fort_search(fort_id=self.fort['id'],
+                                             fort_latitude=lat,
+                                             fort_longitude=lng,
+                                             player_latitude=f2i(self.position[0]),
+                                             player_longitude=f2i(self.position[1]))
+                        response_dict = self.api.call()
+                        sleep(2)
+                        i += 1
             elif spin_result == 2:
                 logger.log("[#] Pokestop out of range")
             elif spin_result == 3:
