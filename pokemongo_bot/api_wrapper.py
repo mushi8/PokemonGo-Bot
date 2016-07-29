@@ -1,9 +1,10 @@
 # api_wrapper.py
 
 from pgoapi import PGoApi
-from pgoapi.exceptions import NotLoggedInException
+from pgoapi.exceptions import NotLoggedInException, ServerBusyOrOfflineException
 from human_behaviour import sleep
 import logger
+
 
 class ApiWrapper(object):
     def __init__(self, api):
@@ -48,17 +49,17 @@ class ApiWrapper(object):
 
         return True
 
-
     def call(self, max_retry=5):
         request_callers = self._pop_request_callers()
         if not self._can_call():
-            return False # currently this is never ran, exceptions are raised before
+            return False  # currently this is never ran, exceptions are raised before
 
         api_req_method_list = self._api._req_method_list
         result = None
         try_cnt = 0
         while True:
-            self._api._req_method_list = [req_method for req_method in api_req_method_list] # api internally clear this field after a call
+            self._api._req_method_list = [req_method for req_method in
+                                          api_req_method_list]  # api internally clear this field after a call
             result = self._api.call()
             if not self._is_response_valid(result, request_callers):
                 try_cnt += 1
@@ -75,10 +76,8 @@ class ApiWrapper(object):
 
     # fallback
     def __getattr__(self, func):
-        DEFAULT_ATTRS = ['_position_lat', '_position_lng', '_auth_provider', '_api_endpoint', 'set_position', 'get_position']
+        DEFAULT_ATTRS = ['_position_lat', '_position_lng', '_auth_provider', '_api_endpoint', 'set_position',
+                         'get_position']
         if func not in DEFAULT_ATTRS:
             self.request_callers.append(func)
         return getattr(self._api, func)
-
-
-
