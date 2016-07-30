@@ -67,6 +67,4 @@ if __name__ == '__main__':
 
 
 def start_new_session(user):
-    p = subprocess.Popen(['./run.sh', user, '&'], stdout=subprocess.PIPE)
-    out, err = p.communicate()
-    return out
+    subprocess.Popen(['./run.sh', user, '&'])
