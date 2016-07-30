@@ -20,7 +20,7 @@ def kill_process(out, process, user):
 
 
 def run_os_command(command):
-    print "command"
+    print "command:", command
     p = subprocess.Popen(str(command), stdout=subprocess.PIPE)
     print "communicat"
     out, err = p.communicate()
@@ -55,8 +55,8 @@ def main(argv):
         elif opt in ("-u", "--user"):
             user = arg
     out = run_os_command('ps -ax')
-    kill_process(out, "python", user)
     kill_process(out, "run.sh", user)
+    kill_process(out, "pokecli", user)
     delete_user_web_data(user)
 
     print "You Player Has been Stopped!"
