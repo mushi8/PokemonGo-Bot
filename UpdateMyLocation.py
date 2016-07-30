@@ -8,19 +8,26 @@ import os
 
 
 def change_user_location(user, location):
-    with open('./conf/' + user + '.json', 'r') as data_file:
-        data = json.load(data_file)
-        data_file.close()
-        print data
-        data['location'] = str(location)
-        data['location_cache'] = False
-        print data
-        with open('./conf/' + user + '.json', 'w') as data_file:
-            json.dump(data, data_file, indent=4)
+    filePath = './conf/' + user + '.json'
+    if os.path.exists(filePath):
+        with open(filePath, 'r') as data_file:
+            data = json.load(data_file)
             data_file.close()
+            print data
+            data['location'] = str(location)
+            data['location_cache'] = False
+            print data
+            with open(filePath, 'w') as data_file:
+                json.dump(data, data_file, indent=4)
+                data_file.close()
+    else:
+        print "No such user in the system"
+        raise IOError
 
 
 def main(argv):
+    location = ''
+    user = ''
     try:
         opts, args = getopt.getopt(argv, "hu:l:", ["user=", "location="])
     except getopt.GetoptError:

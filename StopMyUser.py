@@ -28,9 +28,9 @@ def run_os_command(command):
 def delete_user_web_data(user):
     cwd = os.getcwd()
     web = os.path.join(cwd, WEBDIR)
-    data = os.path.join(cwd, DATADIR)
+    # data = os.path.join(cwd, DATADIR)
     delete_by_file_name_in_dir(web, user)
-    delete_by_file_name_in_dir(data, user)
+    # delete_by_file_name_in_dir(data, user)
 
 
 def delete_by_file_name_in_dir(dirPath, fileContain):
