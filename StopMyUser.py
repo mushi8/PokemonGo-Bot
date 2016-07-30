@@ -21,7 +21,7 @@ def kill_process(out, process, user):
 
 def run_os_command(command):
     print "command:", command
-    p = subprocess.Popen(str(command), stdout=subprocess.PIPE)
+    p = subprocess.Popen(['ps', '-ax'], stdout=subprocess.PIPE)
     print "communicat"
     out, err = p.communicate()
     return out
