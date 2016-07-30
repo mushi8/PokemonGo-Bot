@@ -28,16 +28,13 @@ class CatchVisiblePokemonWorker(object):
 
             user_web_catchable = 'web/catchable-%s.json' % (self.config.username)
             for pokemon in self.cell['catchable_pokemons']:
-
                 with open(user_web_catchable, 'w') as outfile:
                     json.dump(pokemon, outfile)
 
-                return_value = self.catch_pokemon(self.cell['catchable_pokemons'][0])
-
                 with open(user_web_catchable, 'w') as outfile:
-                   json.dump({}, outfile)
+                    json.dump({}, outfile)
 
-                return return_value
+            return self.catch_pokemon(self.cell['catchable_pokemons'][0])
 
         if 'wild_pokemons' in self.cell and len(self.cell['wild_pokemons']) > 0:
             # Sort all by distance from current pos- eventually this should

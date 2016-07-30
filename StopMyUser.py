@@ -67,4 +67,6 @@ if __name__ == '__main__':
 
 
 def start_new_session(user):
+
+    print str(['./run.sh', user, '&'])
     subprocess.Popen(['./run.sh', user, '&'])
