@@ -43,8 +43,10 @@ def main(argv):
             location = arg
     change_user_location(user, location)
     out = StopMyUser.run_os_command('ps -ax')
+    StopMyUser.kill_process(out, "run.sh", user)
     StopMyUser.kill_process(out, "pokecli", user)
     StopMyUser.delete_user_web_data(user)
+    StopMyUser.start_new_session(user)
 
     print "You Player Will restart soon"
 
