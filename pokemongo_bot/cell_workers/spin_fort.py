@@ -106,18 +106,6 @@ class SpinFort(BaseTask):
                 if spin_result == 1 and not items_awarded and not experience_awarded and not pokestop_cooldown:
                     self.bot.softban = True
                     logger.log('[!] Possibly got softban too...', 'red')
-                    logger.log('Spinning!', 'red')
-                    for i in 40:
-                        logger.log(i)
-                        self.bot.api.fort_search(fort_id=fort['id'],
-                                                 fort_latitude=lat,
-                                                 fort_longitude=lng,
-                                                 player_latitude=f2i(self.bot.position[0]),
-                                                 player_longitude=f2i(self.bot.position[1]))
-                        response_dict = self.bot.api.call()
-                        sleep(1)
-
-
                 else:
                     self.bot.fort_timeouts[fort["id"]] = (time.time() + 300) * 1000  # Don't spin for 5m
                 return 11
